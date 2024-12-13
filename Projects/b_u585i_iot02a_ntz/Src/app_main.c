@@ -79,10 +79,12 @@ static int fs_init( void )
     static lfs_t xLfsCtx = { 0 };
 
     struct lfs_info xDirInfo = { 0 };
-
+#if 0
     /* Block time of up to 1 s for filesystem to initialize */
     const struct lfs_config * pxCfg = pxInitializeOSPIFlashFs( pdMS_TO_TICKS( 30 * 1000 ) );
-
+#else
+    const struct lfs_config *pxCfg = pxInitializeInternalFlashFs(pdMS_TO_TICKS(30 * 1000));
+#endif
     /* mount the filesystem */
     int err = lfs_mount( &xLfsCtx, pxCfg );
 
